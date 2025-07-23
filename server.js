@@ -9,6 +9,9 @@ const MongoStore = require('connect-mongo')
 const authController = require('./controllers/auth.controller')
 const isSignedIn = require('./middleware/is-signed-in')
 const passUserToView = require('./middleware/pass-user-to-view')
+const postsController = require('./controllers/posts.controller')
+const Post = require('./models/post')
+
 
 // DATABASE CONNECTION
 mongoose.connect(process.env.MONGODB_URI)
@@ -30,12 +33,19 @@ app.use(session({
 }))
 app.use(passUserToView)
 
-app.get('/', (req, res) => {
-    res.render('index.ejs', { title: 'my App'})
+app.get('/', async (req, res) => {
+    const foundPost = await Post.find()
+    .populate('poster')
+    .sort({ createdAt: -1 })
+    .limit(2)
+    .exec()
+
+    res.render('index.ejs', {foundPost: foundPost})
 })
 
 // ROUTES
 app.use('/auth', authController)
+app.use('/posts', postsController)
 
 app.get('/vip-lounge', isSignedIn, (req, res) => {
     res.send(`Welcome ✨`)

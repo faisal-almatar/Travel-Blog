@@ -1,0 +1,34 @@
+<%- include('../partials/head') %>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+  <div class="card shadow p-4 w-100" style="max-width: 600px;">
+    <h2 class="text-center mb-4">Create a New Post</h2>
+
+    <form action="/posts" method="POST">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="title" id="title" class="form-control" placeholder="Write your title here" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="description" id="description" class="form-control" rows="4" placeholder="Write your description here" required></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input type="text" name="image" id="image" class="form-control" placeholder="Paste the image URL here" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" name="location" id="location" class="form-control" placeholder="Write the location here" required />
+      </div>
+
+      <button type="submit" class="btn btn-success w-100">Create Post</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

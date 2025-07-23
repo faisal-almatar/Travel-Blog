@@ -1,19 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-</head>
-<body>
-<% if (user) { %>
-<h1>Welcome to the app, <%= user.username %>!</h1>
-<a href="/auth/sign-out">Sign out</a>
-<% } else { %>
-<h1>Welcome to the app, guest.</h1>
-<p>
-  <a href="/auth/sign-up">Sign up</a> or <a href="/auth/sign-in">sign in</a>.
-</p>
-<% } %>
+<%- include('./partials/head') %>
+
+<div class="container mt-5">
+  <% if (user) { %>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body text-center">
+        <h2 class="card-title mb-2">Welcome to the Travel Blog, <%= user.username %>!</h2>
+        <a href="/auth/sign-out" class="btn btn-outline-danger me-2">Sign Out</a>
+        <a href="/posts/new" class="btn btn-success">Create a New Post</a>
+      </div>
+    </div>
+  <% } else { %>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body text-center">
+        <h2 class="card-title mb-2">Welcome to the Travel Blog, guest.</h2>
+        <p>
+          <a href="/auth/sign-up" class="btn btn-primary me-2">Sign Up</a>
+          <a href="/auth/sign-in" class="btn btn-outline-primary">Sign In</a>
+        </p>
+      </div>
+    </div>
+  <% } %>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Recent Posts</h3>
+    <a href="/posts" class="btn btn-secondary">View All Posts</a>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% foundPost.forEach((post) => { %>
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <% if (post.image) { %>
+            <img src="<%= post.image %>" class="card-img-top" alt="Post Image" style="max-height: 250px; object-fit: cover;">
+          <% } %>
+          <div class="card-body">
+            <h5 class="card-title"><%= post.title %></h5>
+            <p class="card-text"><strong>By:</strong> <%= post.poster.username %></p>
+            <p class="card-text"><strong>Location:</strong> <%= post.location %></p>
+            <textarea class="form-control mb-3" rows="3" readonly><%= post.description %></textarea>
+            <a href="/posts/<%= post._id %>" class="btn btn-primary w-100">View Post</a>
+          </div>
+          <div class="card-footer text-muted">
+            Created at <%= post.createdAt.toLocaleString() %>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>
 </body>
 </html>

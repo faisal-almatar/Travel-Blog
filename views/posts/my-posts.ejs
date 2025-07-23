@@ -1,0 +1,27 @@
+<%- include('../partials/head') %>
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-4"> My Posts</h1>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <% foundPost.forEach((post) => { %>
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+              <img src="<%= post.image %>" class="card-img-top" alt="Post Image" style="max-height: 250px; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <p class="card-text"><strong>By:</strong> <%= post.poster.username %></p>
+              <p class="card-text"><strong>Location:</strong> <%= post.location %></p>
+              <textarea class="form-control mb-3" rows="3" readonly><%= post.description %></textarea>
+              <a href="/posts/<%= post._id %>" class="btn btn-primary">View Post</a>
+            </div>
+            <div class="card-footer text-muted">
+              Created at <%= post.createdAt.toLocaleString() %>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</body>
+</html>

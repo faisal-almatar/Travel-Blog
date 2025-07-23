@@ -1,0 +1,10 @@
+.post-image {
+  max-height: 400px;
+  object-fit: cover;
+  width: 100%;
+}
+textarea[readonly] {
+  background-color: #f8f9fa;
+  cursor: default;
+  resize: none;
+}
